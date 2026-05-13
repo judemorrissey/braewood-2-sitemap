@@ -1,3 +1,9 @@
+const PIN_TYPE_LABELS = {
+  'fire-hydrant': 'Fire Hydrants',
+  'backflow-preventer': 'Backflow Preventers',
+  'sprinkler-controller': 'Sprinkler Controllers'
+}
+
 const PIN_COLORS = {
   'fire-hydrant': '#ef4444',
   'backflow-preventer': '#f97316',
@@ -78,9 +84,21 @@ function initMap() {
     maxZoom: 20
   }).addTo(map)
 
-  renderPolygons(map)
-  renderPins(map)
-  renderLabels(map)
+  const polygonGroup = renderPolygons(map)
+  const pinGroups = renderPins(map)
+  const labelGroup = renderLabels(map)
+
+  const overlays = {
+    'Landscaping Zones': polygonGroup,
+    'Building Labels': labelGroup
+  }
+
+  for (const [type, group] of pinGroups) {
+    const label = PIN_TYPE_LABELS[type] ?? type
+    overlays[label] = group
+  }
+
+  L.control.layers(null, overlays, { collapsed: false }).addTo(map)
 }
 
 document.addEventListener('DOMContentLoaded', initMap)
