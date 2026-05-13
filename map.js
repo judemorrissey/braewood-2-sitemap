@@ -83,7 +83,7 @@ function communityBounds() {
 function initMap() {
   const map = L.map('map', {
     zoomSnap: 0,
-    zoomDelta: 0.5
+    zoomDelta: 1.5
   })
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
