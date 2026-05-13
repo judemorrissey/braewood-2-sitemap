@@ -27,6 +27,18 @@
       letter-spacing: 0.02em;
     }
     #map { height: calc(100vh - 42px); width: 100%; }
+    #version-badge {
+      position: absolute;
+      bottom: 24px;
+      left: 8px;
+      z-index: 1000;
+      background: rgba(255,255,255,0.8);
+      color: #555;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
     .map-label {
       background: none;
       border: none;
@@ -43,11 +55,14 @@
 <body>
   <div id="header">Braewood 2 Community Map</div>
   <div id="map"></div>
+  <div id="version-badge"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="version.js"></script>
   <script src="data/polygons.js"></script>
   <script src="data/pins.js"></script>
   <script src="data/labels.js"></script>
   <script src="map.js"></script>
+  <script>document.getElementById('version-badge').textContent = VERSION</script>
 </body>
 </html>
