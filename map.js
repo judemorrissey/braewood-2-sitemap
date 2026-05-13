@@ -80,10 +80,36 @@ function communityBounds() {
   return L.latLngBounds(allCoords)
 }
 
+function initSmoothZoom(map) {
+  map.scrollWheelZoom.disable()
+
+  let targetZoom = map.getZoom()
+  let currentZoom = targetZoom
+  let rafId = null
+
+  function tick() {
+    currentZoom += (targetZoom - currentZoom) * 0.12
+    if (Math.abs(targetZoom - currentZoom) < 0.001) {
+      currentZoom = targetZoom
+      rafId = null
+    } else {
+      rafId = requestAnimationFrame(tick)
+    }
+    map.setZoom(currentZoom, { animate: false })
+  }
+
+  map.getContainer().addEventListener('wheel', function(e) {
+    e.preventDefault()
+    targetZoom -= e.deltaY * 0.003
+    targetZoom = Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), targetZoom))
+    if (!rafId) rafId = requestAnimationFrame(tick)
+  }, { passive: false })
+}
+
 function initMap() {
   const map = L.map('map', {
     zoomSnap: 0,
-    zoomDelta: 1.5
+    scrollWheelZoom: false
   })
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
@@ -91,6 +117,8 @@ function initMap() {
     subdomains: 'abcd',
     maxZoom: 20
   }).addTo(map)
+
+  initSmoothZoom(map)
 
   const polygonGroup = renderPolygons(map)
   map.fitBounds(communityBounds(), { padding: [40, 40] })
