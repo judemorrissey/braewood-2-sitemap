@@ -94,7 +94,8 @@ function initMap() {
   }).addTo(map)
 
   const polygonGroup = renderPolygons(map)
-  map.fitBounds(bounds, { padding: [40, 40] })
+  map.fitBounds(communityBounds(), { padding: [40, 40] })
+  map.setMinZoom(map.getZoom())
   const pinGroups = renderPins(map)
   const labelGroup = renderLabels(map)
 
