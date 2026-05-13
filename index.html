@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Braewood 2 Community Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; }
+    #header {
+      padding: 10px 16px;
+      background: #1e3a5f;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    #map { height: calc(100vh - 42px); width: 100%; }
+  </style>
+</head>
+<body>
+  <div id="header">Braewood 2 Community Map</div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data/polygons.js"></script>
+  <script src="data/pins.js"></script>
+  <script src="data/labels.js"></script>
+  <script src="map.js"></script>
+</body>
+</html>
