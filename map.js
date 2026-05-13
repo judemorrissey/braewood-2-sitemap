@@ -81,7 +81,11 @@ function communityBounds() {
 }
 
 function initMap() {
-  const map = L.map('map')
+  const bounds = communityBounds().pad(2)
+  const map = L.map('map', {
+    maxBounds: bounds,
+    maxBoundsViscosity: 1.0
+  })
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
@@ -90,7 +94,7 @@ function initMap() {
   }).addTo(map)
 
   const polygonGroup = renderPolygons(map)
-  map.fitBounds(communityBounds(), { padding: [40, 40] })
+  map.fitBounds(bounds, { padding: [40, 40] })
   const pinGroups = renderPins(map)
   const labelGroup = renderLabels(map)
 
