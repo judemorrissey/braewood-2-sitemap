@@ -81,10 +81,7 @@ function communityBounds() {
 }
 
 function initMap() {
-  const map = L.map('map', {
-    zoomSnap: 0,
-    zoomDelta: 2
-  })
+  const map = L.map('map')
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
