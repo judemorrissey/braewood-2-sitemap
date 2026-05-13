@@ -82,9 +82,8 @@ function communityBounds() {
 
 function initMap() {
   const map = L.map('map', {
-    scrollWheelZoom: false,
-    smoothWheelZoom: true,
-    smoothSensitivity: 1.5
+    zoomSnap: 0,
+    zoomDelta: 0.5
   })
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
