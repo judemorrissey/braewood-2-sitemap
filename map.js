@@ -51,6 +51,24 @@ function renderPins(map) {
   return groups
 }
 
+function renderLabels(map) {
+  const group = L.layerGroup()
+
+  for (const lbl of LABELS) {
+    L.marker(lbl.coords, {
+      icon: L.divIcon({
+        className: 'map-label',
+        html: lbl.text,
+        iconAnchor: [0, 0]
+      }),
+      interactive: false
+    }).addTo(group)
+  }
+
+  group.addTo(map)
+  return group
+}
+
 function initMap() {
   const map = L.map('map').setView([37.6548, -122.4477], 16)
 
@@ -62,6 +80,7 @@ function initMap() {
 
   renderPolygons(map)
   renderPins(map)
+  renderLabels(map)
 }
 
 document.addEventListener('DOMContentLoaded', initMap)
