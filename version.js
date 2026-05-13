@@ -1,1 +1,1 @@
-const VERSION = 'v3'
+const VERSION = 'v4'
