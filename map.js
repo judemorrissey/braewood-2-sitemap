@@ -1,3 +1,21 @@
+function renderPolygons(map) {
+  const group = L.layerGroup()
+
+  for (const poly of POLYGONS) {
+    L.polygon(poly.coords, {
+      color: poly.color,
+      fillColor: poly.color,
+      fillOpacity: poly.opacity,
+      weight: 2
+    })
+      .bindTooltip(poly.label, { sticky: true })
+      .addTo(group)
+  }
+
+  group.addTo(map)
+  return group
+}
+
 function initMap() {
   const map = L.map('map').setView([37.6548, -122.4477], 16)
 
@@ -6,6 +24,8 @@ function initMap() {
     subdomains: 'abcd',
     maxZoom: 20
   }).addTo(map)
+
+  renderPolygons(map)
 }
 
 document.addEventListener('DOMContentLoaded', initMap)
