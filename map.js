@@ -97,10 +97,6 @@ function initMap() {
       attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
       maxZoom: 19
     }),
-    'Topo': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, HERE, Garmin, Intermap, USGS, NGA, EPA, NPS',
-      maxZoom: 19
-    })
   }
 
   baseLayers['Default'].addTo(map)
