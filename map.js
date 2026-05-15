@@ -91,11 +91,13 @@ function initMap() {
     'Default': L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
       subdomains: 'abcd',
-      maxZoom: 20
+      maxNativeZoom: 19,
+      maxZoom: 22
     }),
     'Satellite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
-      maxZoom: 19
+      maxNativeZoom: 19,
+      maxZoom: 22
     }),
   }
 
