@@ -87,11 +87,23 @@ function initMap() {
     maxBoundsViscosity: 1.0
   })
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
-  }).addTo(map)
+  const baseLayers = {
+    'Default': L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }),
+    'Satellite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+      maxZoom: 19
+    }),
+    'Topo': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, HERE, Garmin, Intermap, USGS, NGA, EPA, NPS',
+      maxZoom: 19
+    })
+  }
+
+  baseLayers['Default'].addTo(map)
 
   const polygonGroup = renderPolygons(map)
   map.fitBounds(communityBounds(), { padding: [40, 40] })
@@ -109,7 +121,7 @@ function initMap() {
     overlays[label] = group
   }
 
-  L.control.layers(null, overlays, { collapsed: false }).addTo(map)
+  L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map)
 }
 
 document.addEventListener('DOMContentLoaded', initMap)
