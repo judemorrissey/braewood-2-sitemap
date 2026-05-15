@@ -110,7 +110,7 @@ function initMap() {
   const labelGroup = renderLabels(map)
 
   const overlays = {
-    'Landscaping Zones': polygonGroup,
+    'Community Property Lines': polygonGroup,
     'Building Labels': labelGroup
   }
 
