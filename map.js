@@ -1,13 +1,15 @@
 const PIN_TYPE_LABELS = {
-  'fire-hydrant': 'Fire Hydrants',
+  'fire-extinguisher': 'Fire Extinguishers',
   'backflow-preventer': 'Backflow Preventers',
-  'sprinkler-controller': 'Sprinkler Controllers'
+  'sprinkler-controller': 'Sprinkler Controllers',
+  'building-type': 'Building Types'
 }
 
 const PIN_COLORS = {
-  'fire-hydrant': '#ef4444',
+  'fire-extinguisher': '#ef4444',
   'backflow-preventer': '#f97316',
-  'sprinkler-controller': '#3b82f6'
+  'sprinkler-controller': '#3b82f6',
+  'building-type': '#a855f7'
 }
 
 function renderPolygons(map) {
@@ -15,10 +17,11 @@ function renderPolygons(map) {
 
   for (const poly of POLYGONS) {
     L.polygon(poly.coords, {
-      color: poly.color,
-      fillColor: poly.color,
-      fillOpacity: poly.opacity,
-      weight: 2
+      color: poly.strokeColor ?? poly.color,
+      fillColor: poly.fillColor ?? poly.color,
+      fillOpacity: poly.fillOpacity ?? poly.opacity,
+      opacity: poly.strokeOpacity ?? 1,
+      weight: poly.weight ?? 2
     })
       .bindTooltip(poly.label, { sticky: true })
       .addTo(group)
@@ -43,37 +46,26 @@ function renderPins(map) {
       ? `<strong>${pin.label}</strong><br/>${pin.notes}`
       : `<strong>${pin.label}</strong>`
 
-    L.circleMarker(pin.coords, {
+    const marker = L.circleMarker(pin.coords, {
       radius: 7,
       color: '#fff',
       weight: 2,
       fillColor: color,
       fillOpacity: 0.9
     })
-      .bindPopup(popupContent)
-      .addTo(groups.get(pin.type))
+
+    if (pin.permanentLabel) {
+      marker.bindTooltip(pin.label, { permanent: true, direction: 'right', offset: [8, 0] })
+    } else {
+      marker.bindPopup(popupContent)
+    }
+
+    marker.addTo(groups.get(pin.type))
   }
 
   return groups
 }
 
-function renderLabels(map) {
-  const group = L.layerGroup()
-
-  for (const lbl of LABELS) {
-    L.marker(lbl.coords, {
-      icon: L.divIcon({
-        className: 'map-label',
-        html: lbl.text,
-        iconAnchor: [0, 0]
-      }),
-      interactive: false
-    }).addTo(group)
-  }
-
-  group.addTo(map)
-  return group
-}
 
 function communityBounds() {
   const allCoords = POLYGONS.flatMap(p => p.coords)
@@ -107,11 +99,9 @@ function initMap() {
   map.fitBounds(communityBounds(), { padding: [40, 40] })
   map.setMinZoom(map.getZoom())
   const pinGroups = renderPins(map)
-  const labelGroup = renderLabels(map)
 
   const overlays = {
-    'Community Property Lines': polygonGroup,
-    'Building Labels': labelGroup
+    'Community Property Lines': polygonGroup
   }
 
   for (const [type, group] of pinGroups) {

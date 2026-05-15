@@ -2,8 +2,9 @@ const POLYGONS = [
   {
     id: "community-1",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6444434, -122.4681146],
       [37.644927, -122.4673297],
@@ -21,8 +22,9 @@ const POLYGONS = [
   {
     id: "community-2",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6446559, -122.466468],
       [37.6446165, -122.4665316],
@@ -48,8 +50,9 @@ const POLYGONS = [
   {
     id: "community-3",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6447592, -122.4668463],
       [37.6447787, -122.466907],
@@ -79,8 +82,9 @@ const POLYGONS = [
   {
     id: "community-4",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.643733, -122.4666504],
       [37.6436776, -122.4667101],
@@ -96,8 +100,9 @@ const POLYGONS = [
   {
     id: "community-5",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6445266, -122.4662112],
       [37.6444442, -122.4662112],
@@ -111,8 +116,9 @@ const POLYGONS = [
   {
     id: "community-6",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6438228, -122.4662108],
       [37.6435567, -122.465943],
@@ -131,8 +137,9 @@ const POLYGONS = [
   {
     id: "community-7",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6438245, -122.4662084],
       [37.6439052, -122.4661915],
@@ -165,8 +172,9 @@ const POLYGONS = [
   {
     id: "community-8",
     label: "Community Property Lines",
-    color: "#4ade80",
-    opacity: 0.35,
+    strokeColor: "#22d3ee",
+    fillColor: "#22d3ee",
+    fillOpacity: 0.15,
     coords: [
       [37.6437184, -122.4653883],
       [37.6434774, -122.4651405],
