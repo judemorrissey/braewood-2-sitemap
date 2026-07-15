@@ -199,5 +199,131 @@ const POLYGONS = [
       [37.64315, -122.4661868],
       [37.6436321, -122.4654067]
     ]
+  },
+  {
+    id: "parking-kilconway-ln-1",
+    label: "Kilconway Ln Parking 1",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.644757, -122.4668471],
+      [37.6446259, -122.4669125],
+      [37.6445466, -122.4670042],
+      [37.644546, -122.4670542],
+      [37.6445588, -122.4670966],
+      [37.6446674, -122.4669872],
+      [37.6447759, -122.4669102]
+    ]
+  },
+  {
+    id: "parking-kilconway-ln-2",
+    label: "Kilconway Ln Parking 2",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.6448295, -122.4670319],
+      [37.6448472, -122.4670942],
+      [37.6447039, -122.4671982],
+      [37.6446643, -122.4671289],
+      [37.6447527, -122.4670634]
+    ]
+  },
+  {
+    id: "parking-athy-dr-1",
+    label: "Athy Dr Parking 1",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.6441432, -122.4676596],
+      [37.643911, -122.4674319],
+      [37.6438529, -122.4674632],
+      [37.6440942, -122.4677025]
+    ]
+  },
+  {
+    id: "parking-athy-dr-2",
+    label: "Athy Dr Parking 2",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.6432787, -122.4669047],
+      [37.6433329, -122.4668715],
+      [37.6431087, -122.4666386],
+      [37.6430415, -122.4666738]
+    ]
+  },
+  {
+    id: "parking-meath-dr-1",
+    label: "Meath Dr Parking 1",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.6426856, -122.4662103],
+      [37.6428346, -122.4659556],
+      [37.6428036, -122.4659067],
+      [37.6427585, -122.4659564],
+      [37.642671, -122.4661006],
+      [37.6426361, -122.4661638]
+    ]
+  },
+  {
+    id: "parking-duhallow-way-1",
+    label: "Duhallow Way Parking 1",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.643497, -122.4669992],
+      [37.6436375, -122.4667652],
+      [37.6435941, -122.4667195],
+      [37.6434451, -122.4669512]
+    ]
+  },
+  {
+    id: "parking-duhallow-way-2",
+    label: "Duhallow Way Parking 2",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.6441187, -122.4658975],
+      [37.6440631, -122.465867],
+      [37.6439222, -122.4660924],
+      [37.6439732, -122.4661332]
+    ]
+  },
+  {
+    id: "parking-carter-dr-1",
+    label: "Carter Dr Parking 1",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.643714, -122.4653885],
+      [37.6436321, -122.4654041],
+      [37.6434022, -122.4651615],
+      [37.6434818, -122.4651487]
+    ]
+  },
+  {
+    id: "parking-carter-dr-2",
+    label: "Carter Dr Parking 2",
+    strokeColor: "#facc15",
+    fillColor: "#facc15",
+    fillOpacity: 0.15,
+    coords: [
+      [37.644523, -122.4662126],
+      [37.6444448, -122.466214],
+      [37.6443413, -122.4660958],
+      [37.6442345, -122.4659852],
+      [37.6442301, -122.4659553],
+      [37.6442956, -122.4659483],
+      [37.6444167, -122.4660707]
+    ]
   }
 ]
