@@ -5,6 +5,11 @@ const PIN_TYPE_LABELS = {
   'building-type': 'Building Types'
 }
 
+const POLYGON_CATEGORY_LABELS = {
+  'community-property-lines': 'Community Property Lines',
+  'parking': 'Parking Spots'
+}
+
 const PIN_COLORS = {
   'fire-extinguisher': '#ef4444',
   'backflow-preventer': '#f97316',
@@ -13,34 +18,47 @@ const PIN_COLORS = {
 }
 
 function renderPolygons(map) {
-  const group = L.layerGroup()
+  const categories = new Map()
 
   for (const poly of POLYGONS) {
-    L.polygon(poly.coords, {
+    const category = poly.category ?? 'community-property-lines'
+    if (!categories.has(category)) {
+      const group = L.layerGroup()
+      group.addTo(map)
+      categories.set(category, { group, labelLayers: [] })
+    }
+
+    const entry = categories.get(category)
+    const layer = L.polygon(poly.coords, {
       color: poly.strokeColor ?? poly.color,
       fillColor: poly.fillColor ?? poly.color,
       fillOpacity: poly.fillOpacity ?? poly.opacity,
       opacity: poly.strokeOpacity ?? 1,
       weight: poly.weight ?? 2
-    })
-      .bindTooltip(poly.label, { sticky: true })
-      .addTo(group)
+    }).addTo(entry.group)
+
+    if (poly.permanentLabel) {
+      layer.bindTooltip(poly.label, { permanent: true, direction: 'center' })
+      entry.labelLayers.push(layer)
+    } else {
+      layer.bindTooltip(poly.label, { sticky: true })
+    }
   }
 
-  group.addTo(map)
-  return group
+  return categories
 }
 
 function renderPins(map) {
-  const groups = new Map()
+  const categories = new Map()
 
   for (const pin of PINS) {
-    if (!groups.has(pin.type)) {
+    if (!categories.has(pin.type)) {
       const group = L.layerGroup()
       group.addTo(map)
-      groups.set(pin.type, group)
+      categories.set(pin.type, { group, labelLayers: [] })
     }
 
+    const entry = categories.get(pin.type)
     const color = PIN_COLORS[pin.type] ?? '#6b7280'
     const popupContent = pin.notes
       ? `<strong>${pin.label}</strong><br/>${pin.notes}`
@@ -52,24 +70,101 @@ function renderPins(map) {
       weight: 2,
       fillColor: color,
       fillOpacity: 0.9
-    })
+    }).addTo(entry.group)
 
     if (pin.permanentLabel) {
       marker.bindTooltip(pin.label, { permanent: true, direction: 'right', offset: [8, 0] })
+      entry.labelLayers.push(marker)
     } else {
       marker.bindPopup(popupContent)
     }
-
-    marker.addTo(groups.get(pin.type))
   }
 
-  return groups
+  return categories
 }
 
 
 function communityBounds() {
   const allCoords = POLYGONS.flatMap(p => p.coords)
   return L.latLngBounds(allCoords)
+}
+
+function buildLayersControl(map, baseLayers, sections) {
+  const control = L.control({ position: 'topright' })
+
+  control.onAdd = function () {
+    const container = L.DomUtil.create('div', 'leaflet-control-layers leaflet-control-layers-expanded')
+    L.DomEvent.disableClickPropagation(container)
+    L.DomEvent.disableScrollPropagation(container)
+
+    const baseSection = L.DomUtil.create('div', 'leaflet-control-layers-base', container)
+    const baseNames = Object.keys(baseLayers)
+    let activeBaseLayer = baseNames[0]
+
+    for (const name of baseNames) {
+      const label = L.DomUtil.create('label', '', baseSection)
+      const input = L.DomUtil.create('input', '', label)
+      input.type = 'radio'
+      input.name = 'base-layer'
+      input.checked = name === activeBaseLayer
+      label.appendChild(document.createTextNode(' ' + name))
+
+      L.DomEvent.on(input, 'change', () => {
+        if (!input.checked) return
+        map.removeLayer(baseLayers[activeBaseLayer])
+        baseLayers[name].addTo(map)
+        activeBaseLayer = name
+      })
+    }
+
+    L.DomUtil.create('div', 'leaflet-control-layers-separator', container)
+
+    const overlaySection = L.DomUtil.create('div', 'leaflet-control-layers-overlays', container)
+
+    for (const section of sections) {
+      const label = L.DomUtil.create('label', '', overlaySection)
+      const input = L.DomUtil.create('input', '', label)
+      input.type = 'checkbox'
+      input.checked = true
+      label.appendChild(document.createTextNode(' ' + section.label))
+
+      let labelInput = null
+      if (section.labelLayers.length > 0) {
+        const labelRow = L.DomUtil.create('label', 'layers-label-toggle', overlaySection)
+        labelInput = L.DomUtil.create('input', '', labelRow)
+        labelInput.type = 'checkbox'
+        labelInput.checked = true
+        labelRow.appendChild(document.createTextNode(' Show Labels'))
+
+        L.DomEvent.on(labelInput, 'change', () => {
+          for (const layer of section.labelLayers) {
+            if (labelInput.checked) {
+              layer.openTooltip()
+            } else {
+              layer.closeTooltip()
+            }
+          }
+        })
+      }
+
+      L.DomEvent.on(input, 'change', () => {
+        if (input.checked) {
+          section.group.addTo(map)
+        } else {
+          map.removeLayer(section.group)
+        }
+
+        if (labelInput) {
+          labelInput.disabled = !input.checked
+          labelInput.parentElement.classList.toggle('is-disabled', !input.checked)
+        }
+      })
+    }
+
+    return container
+  }
+
+  control.addTo(map)
 }
 
 function initMap() {
@@ -95,21 +190,30 @@ function initMap() {
 
   baseLayers['Default'].addTo(map)
 
-  const polygonGroup = renderPolygons(map)
+  const polygonCategories = renderPolygons(map)
   map.fitBounds(communityBounds(), { padding: [40, 40] })
   map.setMinZoom(map.getZoom())
-  const pinGroups = renderPins(map)
+  const pinCategories = renderPins(map)
 
-  const overlays = {
-    'Community Property Lines': polygonGroup
+  const sections = []
+
+  const communityEntry = polygonCategories.get('community-property-lines')
+  if (communityEntry) {
+    sections.push({ label: POLYGON_CATEGORY_LABELS['community-property-lines'], ...communityEntry })
   }
 
-  for (const [type, group] of pinGroups) {
+  for (const [type, entry] of pinCategories) {
     const label = PIN_TYPE_LABELS[type] ?? type
-    overlays[label] = group
+    sections.push({ label, ...entry })
   }
 
-  L.control.layers(baseLayers, overlays, { collapsed: false }).addTo(map)
+  for (const [category, entry] of polygonCategories) {
+    if (category === 'community-property-lines') continue
+    const label = POLYGON_CATEGORY_LABELS[category] ?? category
+    sections.push({ label, ...entry })
+  }
+
+  buildLayersControl(map, baseLayers, sections)
 }
 
 document.addEventListener('DOMContentLoaded', initMap)

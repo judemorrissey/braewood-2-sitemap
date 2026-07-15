@@ -202,22 +202,26 @@ const POLYGONS = [
   },
   {
     id: "parking-kilconway-ln-1",
+    category: "parking",
+    permanentLabel: true,
     label: "Kilconway Ln Parking 1",
     strokeColor: "#facc15",
     fillColor: "#facc15",
     fillOpacity: 0.15,
     coords: [
-      [37.644757, -122.4668471],
-      [37.6446259, -122.4669125],
-      [37.6445466, -122.4670042],
+      [37.6447541, -122.4668466],
+      [37.64465, -122.4669194],
+      [37.6445487, -122.467012],
       [37.644546, -122.4670542],
       [37.6445588, -122.4670966],
       [37.6446674, -122.4669872],
-      [37.6447759, -122.4669102]
+      [37.6447786, -122.4669084]
     ]
   },
   {
     id: "parking-kilconway-ln-2",
+    category: "parking",
+    permanentLabel: true,
     label: "Kilconway Ln Parking 2",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -232,6 +236,8 @@ const POLYGONS = [
   },
   {
     id: "parking-athy-dr-1",
+    category: "parking",
+    permanentLabel: true,
     label: "Athy Dr Parking 1",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -245,6 +251,8 @@ const POLYGONS = [
   },
   {
     id: "parking-athy-dr-2",
+    category: "parking",
+    permanentLabel: true,
     label: "Athy Dr Parking 2",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -258,6 +266,8 @@ const POLYGONS = [
   },
   {
     id: "parking-meath-dr-1",
+    category: "parking",
+    permanentLabel: true,
     label: "Meath Dr Parking 1",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -273,6 +283,8 @@ const POLYGONS = [
   },
   {
     id: "parking-duhallow-way-1",
+    category: "parking",
+    permanentLabel: true,
     label: "Duhallow Way Parking 1",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -286,6 +298,8 @@ const POLYGONS = [
   },
   {
     id: "parking-duhallow-way-2",
+    category: "parking",
+    permanentLabel: true,
     label: "Duhallow Way Parking 2",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -299,6 +313,8 @@ const POLYGONS = [
   },
   {
     id: "parking-carter-dr-1",
+    category: "parking",
+    permanentLabel: true,
     label: "Carter Dr Parking 1",
     strokeColor: "#facc15",
     fillColor: "#facc15",
@@ -312,6 +328,8 @@ const POLYGONS = [
   },
   {
     id: "parking-carter-dr-2",
+    category: "parking",
+    permanentLabel: true,
     label: "Carter Dr Parking 2",
     strokeColor: "#facc15",
     fillColor: "#facc15",
